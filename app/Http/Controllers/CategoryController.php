@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function getShow($id)
     {
         $post = Post::findOrFail($id); // Buscar un post por ID
-        if (!Auth::check() || (!$post->habilitated && Auth::user()->id !== $post->user_id)) {
+        if ((!$post->habilitated && (!Auth::check() || Auth::user()->id !== $post->user_id))) {
             abort(404, 'Post no encontrado o no habilitado.');
         }
         return view('category.show', ['post' => $post]);
