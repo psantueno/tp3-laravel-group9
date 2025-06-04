@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/category/delete/{id}', [CategoryController::class, 'getDelete'])->name('category.delete');
     Route::delete('/category/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('category/my', [CategoryController::class, 'getMyCategories'])->name('category.my');
 });
 
 

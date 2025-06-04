@@ -18,6 +18,9 @@ class CategoryController extends Controller
     public function getShow($id)
     {
         $post = Post::findOrFail($id); // Buscar un post por ID
+        if (!Auth::check() || (!$post->habilitated && Auth::user()->id !== $post->user_id)) {
+            abort(404, 'Post no encontrado o no habilitado.');
+        }
         return view('category.show', ['post' => $post]);
     }
 
@@ -59,7 +62,7 @@ class CategoryController extends Controller
 
     Post::create($validated);
 
-    return redirect('/category')->with('success', 'Post creado correctamente.');
+    return redirect('/category/my')->with('success', 'Post creado correctamente.');
 }
 
     public function update(Request $request, $id)
@@ -79,7 +82,7 @@ class CategoryController extends Controller
 
         $post->update($validated);
 
-        return redirect('/category')->with('success', 'Post actualizado correctamente.');
+        return redirect('/category/my')->with('success', 'Post actualizado correctamente.');
     }
 
     public function destroy($id)
@@ -92,7 +95,13 @@ class CategoryController extends Controller
 
         $post->delete();
 
-        return redirect('/category')->with('success', 'Post eliminado correctamente.');
+        return redirect('/category/my')->with('success', 'Post eliminado correctamente.');
     }
 
+    public function getMyCategories()
+    {
+        $posts = Post::where('user_id', Auth::id())->where('habilitated', true)->get();
+        $postsUnhabilitated = Post::where('user_id', Auth::id())->where('habilitated', false)->get();
+        return view('category.my', compact('posts', 'postsUnhabilitated'));
+    }
 }
