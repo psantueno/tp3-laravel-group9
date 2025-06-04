@@ -22,13 +22,9 @@
                 class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition">
                 Editar
             </a>
-            <form action="{{ url('/category/delete/' . $post->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas borrar este post?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition" title="Borrar">
-                    Borrar
-                </button>
-            </form>
+            <a href="{{ url('/category/delete/' . $post->id) }}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
+                Eliminar
+            </a>
             @endif
         </div>
     </div>
