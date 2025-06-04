@@ -12,8 +12,13 @@ Route::get('/', [HomeController::class, 'getHome']);
 // Rutas para categoría -> métodos en CategoryController
 Route::get('/category', [CategoryController::class, 'getIndex']);
 Route::get('/category/show/{id}', [CategoryController::class, 'getShow']);
-Route::get('/category/create', [CategoryController::class, 'getCreate']);
-Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit']);
+
+// Rutas protegidas por autenticación
+Route::middleware('auth')->group(function () {
+    Route::get('/category/create', [CategoryController::class, 'getCreate']);
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit']);
+});
 
 
 Route::get('/dashboard', function () {
