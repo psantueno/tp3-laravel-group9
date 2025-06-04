@@ -37,6 +37,15 @@ class CategoryController extends Controller
     return view('category.edit', ['post' => $post]);
 }
 
+    public function getDelete($id){
+        $post = Post::findOrFail($id);
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'No tenés permiso para eliminar este post.');
+        }
+
+        return view('category.delete', ['post' => $post]);
+    }
+
    public function store(Request $request)
 {
     $validated = $request->validate([
@@ -52,5 +61,38 @@ class CategoryController extends Controller
 
     return redirect('/category')->with('success', 'Post creado correctamente.');
 }
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'No tenés permiso para actualizar este post.');
+        }
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|max:50',
+            'habilitated' => 'required|boolean',
+            'content' => 'required|string',
+        ]);
+
+        $post->update($validated);
+
+        return redirect('/category')->with('success', 'Post actualizado correctamente.');
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'No tenés permiso para eliminar este post.');
+        }
+
+        $post->delete();
+
+        return redirect('/category')->with('success', 'Post eliminado correctamente.');
+    }
 
 }
