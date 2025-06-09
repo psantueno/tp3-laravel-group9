@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\ContactController; 
 use Illuminate\Support\Facades\Route;
 
 // Ruta principal -> método getHome en HomeController
@@ -37,7 +38,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::view('/about', 'about')->name('about');
-Route::view('/contact', 'contact')->name('contact');
+Route::get('/contact', [ContactController::class, 'getContact'])->name('contact');
+Route::post('/contact/create', [ContactController::class, 'createCommentary'])->name('contact.create');
 
 require __DIR__.'/auth.php';
 
