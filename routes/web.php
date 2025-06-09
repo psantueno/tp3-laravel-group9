@@ -11,35 +11,37 @@ Route::get('/', [HomeController::class, 'getHome']);
 
 
 // Rutas para categoría -> métodos en CategoryController
-Route::get('/category', [CategoryController::class, 'getIndex']);
-Route::get('/category/show/{id}', [CategoryController::class, 'getShow']);
+Route::prefix('category')->group(function(){
+    Route::get('/', [CategoryController::class, 'getIndex']);
+    Route::get('/show/{id}', [CategoryController::class, 'getShow']);
 
-// Rutas protegidas por autenticación
-Route::middleware('auth')->group(function () {
-    Route::get('/category/create', [CategoryController::class, 'getCreate']);
-    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit']);
-    Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-    Route::get('/category/delete/{id}', [CategoryController::class, 'getDelete'])->name('category.delete');
-    Route::delete('/category/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-    Route::get('category/my', [CategoryController::class, 'getMyCategories'])->name('category.my');
+    // Rutas protegidas por autenticación
+    Route::middleware('auth')->group(function (){
+        Route::get('/create', [CategoryController::class, 'getCreate']);
+        Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/edit/{id}', [CategoryController::class, 'getEdit']);
+        Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+        Route::get('/delete/{id}', [CategoryController::class, 'getDelete'])->name('category.delete');
+        Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+        Route::get('/my', [CategoryController::class, 'getMyCategories'])->name('category.my');
+    });
 });
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
+// Rutas del perfil y protegidas por autenticación -> métodos en ProfileController
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('profile')->group(function(){
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+});
+
+Route::prefix('contact')->group(function () {
+    Route::get('/', [ContactController::class, 'getContact'])->name('contact');
+    Route::post('/create', [ContactController::class, 'createCommentary'])->name('contact.create');
 });
 
 Route::view('/about', 'about')->name('about');
-Route::get('/contact', [ContactController::class, 'getContact'])->name('contact');
-Route::post('/contact/create', [ContactController::class, 'createCommentary'])->name('contact.create');
 
 require __DIR__.'/auth.php';
 
