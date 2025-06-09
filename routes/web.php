@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\PostController; 
 use App\Http\Controllers\ContactController; 
 use Illuminate\Support\Facades\Route;
 
@@ -10,20 +10,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'getHome']);
 
 
-// Rutas para categoría -> métodos en CategoryController
-Route::prefix('category')->group(function(){
-    Route::get('/', [CategoryController::class, 'getIndex']);
-    Route::get('/show/{id}', [CategoryController::class, 'getShow']);
+// Rutas para categoría -> métodos en PostController
+Route::prefix('posts')->group(function(){
+    Route::get('/', [PostController::class, 'getIndex']);
+    Route::get('/show/{id}', [PostController::class, 'getShow']);
 
     // Rutas protegidas por autenticación
     Route::middleware('auth')->group(function (){
-        Route::get('/create', [CategoryController::class, 'getCreate']);
-        Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
-        Route::get('/edit/{id}', [CategoryController::class, 'getEdit']);
-        Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-        Route::get('/delete/{id}', [CategoryController::class, 'getDelete'])->name('category.delete');
-        Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-        Route::get('/my', [CategoryController::class, 'getMyCategories'])->name('category.my');
+        Route::get('/create', [PostController::class, 'getCreate']);
+        Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+        Route::get('/edit/{id}', [PostController::class, 'getEdit']);
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
+        Route::get('/delete/{id}', [PostController::class, 'getDelete'])->name('posts.delete');
+        Route::delete('/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+        Route::get('/my', [PostController::class, 'getMyCategories'])->name('posts.my');
     });
 });
 

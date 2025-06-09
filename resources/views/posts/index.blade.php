@@ -13,16 +13,16 @@
             <p class="text-gray-600 text-sm mb-4"><span class="font-bold">Creado el:</span> {{ $post->created_at->format('d/m/Y H:i') }}</p>
         </div>
         <div class="flex gap-2 mt-4">
-            <a href="{{ url('/category/show/' . $post->id) }}"
+            <a href="{{ url('/posts/show/' . $post->id) }}"
                 class="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 transition">
                 Ver
             </a>
             @if(Auth::check() && $post->user_id === Auth::id())
-            <a href="{{ url('/category/edit/' . $post->id) }}"
+            <a href="{{ url('/posts/edit/' . $post->id) }}"
                 class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition">
                 Editar
             </a>
-            <a href="{{ url('/category/delete/' . $post->id) }}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
+            <a href="{{ url('/posts/delete/' . $post->id) }}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
                 Eliminar
             </a>
             @endif
