@@ -1,4 +1,4 @@
-@extends('layouts')
+@extends('layout')
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
@@ -31,7 +31,7 @@
     {{-- Créditos del equipo --}}
     <div class="text-center mt-12">
         <h4 class="text-xl font-semibold text-blue-700 mb-2">Desarrollado por:</h4>
-        <p class="text-lg text-gray-800">Antuano Pablo Sebastian / FAI - 4973</p>
+        <p class="text-lg text-gray-800">Antueno Pablo Sebastian / FAI - 4973</p>
         <p class="text-lg text-gray-800">Cruz Jesus Ramon Alexis / FAI - 4582</p>
         <p class="text-lg text-gray-800">Mondaca Araceli Andrea / FAI - 2147</p>
     </div>
