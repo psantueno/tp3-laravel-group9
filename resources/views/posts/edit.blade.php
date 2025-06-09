@@ -4,7 +4,7 @@
 <div class="flex items-center justify-center min-h-[70vh]">
     <div class="max-w-lg w-full bg-white rounded-lg shadow p-8">
         <h1 class="text-2xl font-bold text-blue-700 mb-6">EDITAR POST</h1>
-        <form method="POST" action="{{ route('category.update',[$post->id]) }}">
+        <form method="POST" action="{{ route('posts.update',[$post->id]) }}">
             @csrf
             @method('PUT')
             <!-- Título -->

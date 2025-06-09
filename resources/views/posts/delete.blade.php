@@ -5,7 +5,7 @@
     <div class="bg-white rounded-lg shadow p-8 mb-6">
         <h1 class="text-2xl font-bold text-red-600 mb-4 text-center">Eliminar Post</h1>
         <p class="text-gray-700 mb-4">¿Estás seguro de que deseas eliminar el post "{{ $post->title }}"?</p>
-        <form method="POST" action="{{ route('category.destroy', [$post->id]) }}">
+        <form method="POST" action="{{ route('posts.destroy', [$post->id]) }}">
             @csrf
             @method('DELETE')
             <div class="flex justify-end">

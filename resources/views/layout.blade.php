@@ -22,14 +22,14 @@
 
                 <!-- Links -->
                 <div class="hidden md:flex space-x-6 items-center">
-                    <a href="{{ url('/category') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Categorías</a>
+                    <a href="{{ url('/posts') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Posts</a>
                     <!-- <a href="{{ url('/category/create') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Crear Post</a> -->
                     <a href="{{ url('/about') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Acerca de</a>
                     <a href="{{ url('/contact') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Contacto</a>
 
                     @auth
                     <!-- Usuario logueado -->
-                    <a href="{{ url('/category/create') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Crear Post</a>
+                    <a href="{{ url('/posts/create') }}" class="text-gray-700 hover:text-blue-600 p-3 m-1">Crear Post</a>
                     <div x-data="{ open: false }" class="relative">
                         <button @click="open = !open" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 focus:outline-none">
                             <!-- Icono de usuario -->
@@ -45,7 +45,7 @@
                         <div x-show="open" @click.outside="open = false"
                             class="absolute right-0 mt-2 w-40 bg-white border rounded shadow z-10 py-2">
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mi perfil</a>
-                            <a href="{{ route('category.my') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mis posts</a>
+                            <a href="{{ route('posts.my') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mis posts</a>
                             <form action="{{ url('/logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Cerrar sesión</button>

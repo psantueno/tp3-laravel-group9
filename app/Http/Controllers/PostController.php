@@ -7,12 +7,12 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
     public function getIndex()
     {
         $posts = Post::where('habilitated', true)->get();
-        return view('category.index', compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     public function getShow($id)
@@ -21,12 +21,12 @@ class CategoryController extends Controller
         if ((!$post->habilitated && (!Auth::check() || Auth::user()->id !== $post->user_id))) {
             abort(404, 'Post no encontrado o no habilitado.');
         }
-        return view('category.show', ['post' => $post]);
+        return view('posts.show', ['post' => $post]);
     }
 
     public function getCreate()
     {
-        return view('category.create');
+        return view('posts.create');
     }
 
     public function getEdit($id)
@@ -37,7 +37,7 @@ class CategoryController extends Controller
         abort(403, 'No tenés permiso para editar este post.');
     }
 
-    return view('category.edit', ['post' => $post]);
+    return view('posts.edit', ['post' => $post]);
 }
 
     public function getDelete($id){
@@ -46,7 +46,7 @@ class CategoryController extends Controller
             abort(403, 'No tenés permiso para eliminar este post.');
         }
 
-        return view('category.delete', ['post' => $post]);
+        return view('posts.delete', ['post' => $post]);
     }
 
    public function store(Request $request)
@@ -62,7 +62,7 @@ class CategoryController extends Controller
 
     Post::create($validated);
 
-    return redirect('/category/my')->with('success', 'Post creado correctamente.');
+    return redirect('/posts/my')->with('success', 'Post creado correctamente.');
 }
 
     public function update(Request $request, $id)
@@ -82,7 +82,7 @@ class CategoryController extends Controller
 
         $post->update($validated);
 
-        return redirect('/category/my')->with('success', 'Post actualizado correctamente.');
+        return redirect('/posts/my')->with('success', 'Post actualizado correctamente.');
     }
 
     public function destroy($id)
@@ -95,13 +95,13 @@ class CategoryController extends Controller
 
         $post->delete();
 
-        return redirect('/category/my')->with('success', 'Post eliminado correctamente.');
+        return redirect('/posts/my')->with('success', 'Post eliminado correctamente.');
     }
 
     public function getMyCategories()
     {
         $posts = Post::where('user_id', Auth::id())->where('habilitated', true)->get();
         $postsUnhabilitated = Post::where('user_id', Auth::id())->where('habilitated', false)->get();
-        return view('category.my', compact('posts', 'postsUnhabilitated'));
+        return view('posts.my', compact('posts', 'postsUnhabilitated'));
     }
 }
